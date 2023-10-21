@@ -5,15 +5,17 @@ import (
 	"fmt"
 )
 
+// PriceFetcher is an  interface that can fetch a price 
 type PriceFetcher interface {
 	FetchPrice(context.Context, string) (float64, error)
 }
 
+// PriceFetcher implements  the PriceFetcher interface
 type priceFetcher struct {
 }
 
 func (s *priceFetcher) FetchPrice(ctx context.Context, ticker string) (float64, error) {
-
+	 return  MockPriceFetcher(ctx, ticker) 
 }
 
 var PriceMocks = map[string]float64{
