@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 )
 
-// PriceFetcher is an  interface that can fetch a price 
+// PriceFetcher is an  interface that can fetch a price
 type PriceFetcher interface {
 	FetchPrice(context.Context, string) (float64, error)
 }
@@ -15,7 +16,7 @@ type priceFetcher struct {
 }
 
 func (s *priceFetcher) FetchPrice(ctx context.Context, ticker string) (float64, error) {
-	 return  MockPriceFetcher(ctx, ticker) 
+	return MockPriceFetcher(ctx, ticker)
 }
 
 var PriceMocks = map[string]float64{
@@ -24,6 +25,8 @@ var PriceMocks = map[string]float64{
 }
 
 func MockPriceFetcher(ctx context.Context, ticker string) (float64, error) {
+	// mimic the http roundtrip
+	time.Sleep(100 * time.Millisecond)
 	price, ok := PriceMocks[ticker]
 	if !ok {
 		return price, fmt.Errorf("the given ticker (%s) is not supported", ticker)
