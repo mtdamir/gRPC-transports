@@ -16,7 +16,7 @@ func NewMetricService(next PriceFetcher) PriceFetcher {
 }
 
 func (s *metricService) FetchPrice(ctx context.Context, ticker string) (price float64, err error) {
-	fmt.Println("pushing metrics ")
-	// metrics storage
+	fmt.Println("pushing metrics to prometheus")
+	// your metrics storage. Push to prometheus (gauge, counters)
 	return s.next.FetchPrice(ctx, ticker)
 }
